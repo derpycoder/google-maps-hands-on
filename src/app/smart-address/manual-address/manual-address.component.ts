@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormGroup, FormArray } from '@angular/forms';
   templateUrl: './manual-address.component.html',
   styleUrls: ['./manual-address.component.css']
 })
-export class ManualAddressComponent implements OnInit {
+export class ManualAddressComponent implements OnInit, OnDestroy {
   @Input() addressFormGroup: FormGroup;
 
   get addresses(): FormArray {
@@ -21,4 +21,9 @@ export class ManualAddressComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.addressFormGroup.patchValue({
+      name: this.addresses.at(0).value
+    });
+  }
 }

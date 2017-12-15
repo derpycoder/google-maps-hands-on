@@ -23,8 +23,6 @@ export class GoogleAddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setCurrentPosition();
-
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ["address"]
@@ -50,16 +48,6 @@ export class GoogleAddressComponent implements OnInit {
     });
   }
 
-  private setCurrentPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.initialLocation.latitude = position.coords.latitude;
-        this.initialLocation.longitude = position.coords.longitude;
-        this.initialLocation.zoom = 12;
-      });
-    }
-  }
-
   private disectAddressComponents(addressComponents: AddressComponent[]) {
     let payload: any = {
       'city': '',
@@ -74,7 +62,7 @@ export class GoogleAddressComponent implements OnInit {
             payload.city = component.long_name;
             break;
           case AddressTypes.STATE:
-            payload.state = component.long_name;
+            payload.state = component.short_name;
             break;
           case AddressTypes.COUNTRY:
             payload.country = component.short_name;
@@ -96,10 +84,26 @@ export class GoogleAddressComponent implements OnInit {
       payload[x[0]] = x[1];
     });
 
-    this.addressFormGroup.patchValue({
-      addresses: [`${payload['street-address']}, ${payload['extended-address']}`]
-    });
+    this.fillAddresses(payload);
 
     console.log(payload);
+  }
+
+  private fillAddresses(payload) {
+    let addr: string = ""
+
+    addr += payload['street-address'] ? payload['street-address'] + ', ' : '';
+
+    if (payload['extended-address']) {
+      addr += payload['extended-address'];
+    } else {
+      addr += payload['locality'] ? payload['locality'] + ', ' : '';
+      addr += payload['region'] ? payload['region'] + ', ' : '';
+      addr += payload['country-name'] ? payload['country-name'] : '';
+    }
+
+    this.addressFormGroup.patchValue({
+      addresses: [addr]
+    });
   }
 }
