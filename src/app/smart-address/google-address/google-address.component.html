@@ -4,6 +4,6 @@
             formControlName="name" #search>
     </form>
 </div>
-<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+<agm-map [latitude]="initialLocation.latitude" [longitude]="initialLocation.longitude" [scrollwheel]="false" [zoom]="initialLocation.zoom">
+    <agm-marker [latitude]="initialLocation.latitude" [longitude]="initialLocation.longitude"></agm-marker>
 </agm-map>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
+import { GeometricLocation } from './';
 
 enum AddressTabs { GOOGLE, MANUAL }
 
@@ -14,22 +16,22 @@ export class SmartAddressComponent implements OnInit {
 
   addressFormGroup: FormGroup;
 
+  initialLocation: GeometricLocation = {
+    latitude: 39.8282,
+    longitude: -98.5795,
+    zoom: 4,
+  };
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.addressFormGroup = this.formBuilder.group({
       'name': '',
-      'addresses': this.formBuilder.array([this.createAddress()]),
+      'addresses': this.formBuilder.array([new FormControl()]),
       'city': '',
       'state': '',
       'country': '',
       'pin': ''
-    });
-  }
-
-  createAddress() {
-    return this.formBuilder.group({
-      'address': ''
     });
   }
 }

@@ -16,6 +16,9 @@ export class ManualAddressComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.addressFormGroup.patchValue({
+      name: this.addresses.at(0).value
+    });
   }
 
 }

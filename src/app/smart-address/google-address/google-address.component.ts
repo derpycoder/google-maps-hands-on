@@ -4,17 +4,15 @@ import { FormGroup } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 
+import { AddressTypes, AddressComponent, GeometricLocation } from '../data-models';
 @Component({
   selector: 'ak-google-address',
   templateUrl: './google-address.component.html',
   styleUrls: ['./google-address.component.css']
 })
 export class GoogleAddressComponent implements OnInit {
-  latitude: number = 39.8282;
-  longitude: number = -98.5795;
-  zoom: number = 4;
-
   @Input() addressFormGroup: FormGroup;
+  @Input() initialLocation: GeometricLocation;
 
   @ViewChild("search")
   searchElementRef: ElementRef;
@@ -41,9 +39,12 @@ export class GoogleAddressComponent implements OnInit {
             return;
           }
 
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+          this.disectAddressComponents(place.address_components);
+          this.disectAddressHTML(place.adr_address);
+
+          this.initialLocation.latitude = place.geometry.location.lat();
+          this.initialLocation.longitude = place.geometry.location.lng();
+          this.initialLocation.zoom = 12;
         });
       });
     });
@@ -52,10 +53,53 @@ export class GoogleAddressComponent implements OnInit {
   private setCurrentPosition() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
+        this.initialLocation.latitude = position.coords.latitude;
+        this.initialLocation.longitude = position.coords.longitude;
+        this.initialLocation.zoom = 12;
       });
     }
+  }
+
+  private disectAddressComponents(addressComponents: AddressComponent[]) {
+    let payload: any = {
+      'city': '',
+      'state': '',
+      'country': '',
+      'pin': ''
+    };
+    addressComponents.forEach(component => {
+      component.types.forEach(type => {
+        switch (type) {
+          case AddressTypes.CITY:
+            payload.city = component.long_name;
+            break;
+          case AddressTypes.STATE:
+            payload.state = component.long_name;
+            break;
+          case AddressTypes.COUNTRY:
+            payload.country = component.short_name;
+            break;
+          case AddressTypes.PIN:
+            payload.pin = component.long_name;
+        }
+      });
+    });
+
+    this.addressFormGroup.patchValue(payload);
+  }
+
+  private disectAddressHTML(address: string) {
+    let payload = {}, x;
+
+    address.match(/<span class="(.*?)(?=<\/span>)/g).forEach(addr => {
+      x = addr.substring(13).split('">');
+      payload[x[0]] = x[1];
+    });
+
+    this.addressFormGroup.patchValue({
+      addresses: [`${payload['street-address']}, ${payload['extended-address']}`]
+    });
+
+    console.log(payload);
   }
 }

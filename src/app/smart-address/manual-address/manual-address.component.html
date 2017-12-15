@@ -1,10 +1,22 @@
 <div class="form-group">
     <form [formGroup]="addressFormGroup" novalidate>
         <ng-container formArrayName="addresses">
-            <ng-container *ngFor="let address of addresses.controls; let i = index" [formGroupName]="i">
+            <ng-container *ngFor="let address of addresses.controls; let i = index">
                 <label [for]="'address' + i">Address {{i}}</label>
-                <input [id]="'address' + i" [placeholder]="'Address ' + i" class="form-control" formControlName="address">
+                <input [id]="'address' + i" [placeholder]="'Address ' + i" class="form-control" [formControlName]="i">
             </ng-container>
         </ng-container>
+
+        <label for="country"></label>
+        <input id="country" placeholder="Country" class="form-control" formControlName="country">
+
+        <label for="state"></label>
+        <input id="state" placeholder="State" class="form-control" formControlName="state">
+
+        <label for="city"></label>
+        <input id="city" placeholder="City" class="form-control" formControlName="city">
+
+        <label for="pin"></label>
+        <input id="pin" placeholder="Pin" class="form-control" formControlName="pin">
     </form>
 </div>
