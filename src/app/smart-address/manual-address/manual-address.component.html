@@ -1,1 +1,10 @@
-Manual Address Form Working!
+<div class="form-group">
+    <form [formGroup]="addressFormGroup" novalidate>
+        <ng-container formArrayName="addresses">
+            <ng-container *ngFor="let address of addresses.controls; let i = index" [formGroupName]="i">
+                <label [for]="'address' + i">Address {{i}}</label>
+                <input [id]="'address' + i" [placeholder]="'Address ' + i" class="form-control" formControlName="address">
+            </ng-container>
+        </ng-container>
+    </form>
+</div>

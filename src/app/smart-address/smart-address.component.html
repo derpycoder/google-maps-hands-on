@@ -8,7 +8,9 @@
         </li>
     </ul>
     <div [ngSwitch]="selectedTab" class="sub-container">
-        <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE"></ak-google-address>
-        <ak-manual-address *ngSwitchCase="mAddressTabs.MANUAL"></ak-manual-address>
+        <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE" [addressFormGroup]="addressFormGroup"></ak-google-address>
+        <ak-manual-address *ngSwitchCase="mAddressTabs.MANUAL" [addressFormGroup]="addressFormGroup"></ak-manual-address>
     </div>
+
+    <output>{{addressFormGroup.value | json}}</output>
 </div>
