@@ -1,7 +1,10 @@
 <div class="container col-md-offset-3 col-md-6">
-    <ng-template *ngIf="isUnified; else nonUnified">
-            <ak-google-address [addressFormGroup]="addressFormGroup" [initialLocation]="initialLocation"></ak-google-address>
-    </ng-template>
+    <ng-container *ngIf="isUnified; else nonUnified">
+        <div class="sub-container">
+            <ak-google-address [addressFormGroup]="addressFormGroup" [showMap]="showMap" [initialLocation]="initialLocation"></ak-google-address>
+            <ak-manual-address [addressFormGroup]="addressFormGroup"></ak-manual-address>
+        </div>
+    </ng-container>
     <ng-template #nonUnified>
         <ul class="nav nav-pills">
             <li [ngClass]="{'active': selectedTab == mAddressTabs.GOOGLE}">
@@ -12,7 +15,7 @@
             </li>
         </ul>
         <div [ngSwitch]="selectedTab" class="sub-container">
-            <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE" [addressFormGroup]="addressFormGroup" [initialLocation]="initialLocation"></ak-google-address>
+            <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE" [addressFormGroup]="addressFormGroup" [showMap]="showMap" [initialLocation]="initialLocation"></ak-google-address>
             <ak-manual-address *ngSwitchCase="mAddressTabs.MANUAL" [addressFormGroup]="addressFormGroup"></ak-manual-address>
         </div>
     </ng-template>

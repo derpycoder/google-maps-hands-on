@@ -21,7 +21,7 @@ export const states: CodeName[] = [
         'code': 'Telangana',
         'name': 'Telangana'
     }, {
-        'code': 'DC',
-        'name': 'Washington DC'
+        'code': 'TX',
+        'name': 'Texas'
     }
 ];

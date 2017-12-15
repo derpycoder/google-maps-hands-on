@@ -13,6 +13,7 @@ import { AddressTypes, AddressComponent, GeometricLocation } from '../data-model
 export class GoogleAddressComponent implements OnInit {
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation;
+  @Input() showMap: boolean;
 
   @ViewChild("search")
   searchElementRef: ElementRef;

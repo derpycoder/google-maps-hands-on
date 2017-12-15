@@ -2,8 +2,8 @@
     <form [formGroup]="addressFormGroup" novalidate>
         <ng-container formArrayName="addresses">
             <ng-container *ngFor="let address of addresses.controls; let i = index">
-                <label [for]="'address' + i">Address {{i}}</label>
-                <input [id]="'address' + i" [placeholder]="'Address ' + i" class="form-control" [formControlName]="i">
+                <label [for]="'address' + i">Address {{i + 1}}</label>
+                <input [id]="'address' + i" [placeholder]="'Address ' + (i + 1)" class="form-control" [formControlName]="i">
             </ng-container>
         </ng-container>
 

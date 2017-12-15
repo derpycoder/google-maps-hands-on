@@ -14,6 +14,7 @@ export class SmartAddressComponent implements OnInit {
   mAddressTabs = AddressTabs;
   selectedTab: AddressTabs = AddressTabs.GOOGLE;
 
+  @Input() showMap: boolean = true;
   @Input() isUnified: boolean;
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation = {
@@ -21,15 +22,24 @@ export class SmartAddressComponent implements OnInit {
     longitude: -98.5795,
     zoom: 4,
   };
+  @Input() addressCount: Number = 3;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.setCurrentPosition();
 
+    let addrArray = this.formBuilder.array([new FormControl()])
+    let i = 1;
+
+    while (i < this.addressCount) {
+      addrArray.push(new FormControl());
+      i++;
+    }
+
     this.addressFormGroup = this.formBuilder.group({
       'name': '',
-      'addresses': this.formBuilder.array([new FormControl()]),
+      'addresses': addrArray,
       'city': '',
       'state': 'Telangana',
       'country': 'IN',

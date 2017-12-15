@@ -1,9 +1,11 @@
 <div class="form-group">
     <form [formGroup]="addressFormGroup" novalidate>
-        <input placeholder="Search for Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
-            formControlName="name" #search>
+        <label for="google-search">Google</label>
+        <input id="google-search" placeholder="Search for Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+            class="form-control" formControlName="name" #search>
     </form>
 </div>
-<agm-map [latitude]="initialLocation.latitude" [longitude]="initialLocation.longitude" [scrollwheel]="false" [zoom]="initialLocation.zoom">
+<agm-map [ngClass]="{'show-map': showMap}" [latitude]="initialLocation.latitude" [longitude]="initialLocation.longitude"
+    [scrollwheel]="false" [zoom]="initialLocation.zoom">
     <agm-marker [latitude]="initialLocation.latitude" [longitude]="initialLocation.longitude"></agm-marker>
 </agm-map>
