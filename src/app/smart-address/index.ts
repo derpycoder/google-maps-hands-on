@@ -1,1 +1,1 @@
-export * from './components/smart-address.component';
+export * from './smart-address.component';

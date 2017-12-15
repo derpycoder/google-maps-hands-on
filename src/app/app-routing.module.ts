@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SmartAddressComponent } from './smart-address/components/smart-address.component';
+import { SmartAddressComponent } from './smart-address/smart-address.component';
 
 const routes: Routes = [
   { path: '', component: SmartAddressComponent }
