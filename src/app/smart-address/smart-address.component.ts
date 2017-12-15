@@ -22,7 +22,7 @@ export class SmartAddressComponent implements OnInit {
     longitude: -98.5795,
     zoom: 4,
   };
-  @Input() addressCount = 1;
+  @Input() addressCount = 2;
 
   constructor(private formBuilder: FormBuilder) { }
 
