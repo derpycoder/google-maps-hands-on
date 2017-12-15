@@ -35,6 +35,9 @@ export class GoogleAddressComponent implements OnInit {
           console.log(place);
 
           if (place.geometry === undefined || place.geometry === null) {
+            this.addressFormGroup.patchValue({
+              addresses: [this.addressFormGroup.get('name').value || '']
+            });
             return;
           }
 
@@ -73,7 +76,7 @@ export class GoogleAddressComponent implements OnInit {
         }
       });
     });
-
+    
     this.addressFormGroup.patchValue(payload);
   }
 
@@ -102,7 +105,7 @@ export class GoogleAddressComponent implements OnInit {
       addr += payload['region'] ? payload['region'] + ', ' : '';
       addr += payload['country-name'] ? payload['country-name'] : '';
     }
-
+    
     this.addressFormGroup.patchValue({
       addresses: [addr]
     });

@@ -15,7 +15,7 @@ export class SmartAddressComponent implements OnInit {
   selectedTab: AddressTabs = AddressTabs.GOOGLE;
 
   @Input() showMap: boolean = true;
-  @Input() isUnified: boolean;
+  @Input() isUnified: boolean = true;
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation = {
     latitude: 39.8282,
