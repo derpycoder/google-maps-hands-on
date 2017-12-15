@@ -14,6 +14,7 @@ export class SmartAddressComponent implements OnInit {
   mAddressTabs = AddressTabs;
   selectedTab: AddressTabs = AddressTabs.GOOGLE;
 
+  @Input() isUnified: boolean;
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation = {
     latitude: 39.8282,
@@ -30,8 +31,8 @@ export class SmartAddressComponent implements OnInit {
       'name': '',
       'addresses': this.formBuilder.array([new FormControl()]),
       'city': '',
-      'state': '',
-      'country': '',
+      'state': 'Telangana',
+      'country': 'IN',
       'pin': ''
     });
   }

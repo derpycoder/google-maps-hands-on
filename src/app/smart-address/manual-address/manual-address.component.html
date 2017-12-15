@@ -8,10 +8,14 @@
         </ng-container>
 
         <label for="country">Country</label>
-        <input id="country" placeholder="Country" class="form-control" formControlName="country">
+        <select id="country" formControlName="country" class="form-control">
+            <option [value]="c.code" *ngFor="let c of countries">{{c.name}}</option>
+        </select>
 
         <label for="state">State</label>
-        <input id="state" placeholder="State" class="form-control" formControlName="state">
+        <select id="state" formControlName="state" class="form-control">
+            <option [value]="s.code" *ngFor="let s of states">{{s.name}}</option>
+        </select>
 
         <label for="city">City</label>
         <input id="city" placeholder="City" class="form-control" formControlName="city">

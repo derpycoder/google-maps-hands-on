@@ -1,16 +1,20 @@
 <div class="container col-md-offset-3 col-md-6">
-    <ul class="nav nav-pills">
-        <li [ngClass]="{'active': selectedTab == mAddressTabs.GOOGLE}">
-            <a (click)="selectedTab = mAddressTabs.GOOGLE">Google Input</a>
-        </li>
-        <li [ngClass]="{'active': selectedTab == mAddressTabs.MANUAL}">
-            <a (click)="selectedTab = mAddressTabs.MANUAL">Manual Input</a>
-        </li>
-    </ul>
-    <div [ngSwitch]="selectedTab" class="sub-container">
-        <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE" [addressFormGroup]="addressFormGroup" [initialLocation]="initialLocation"></ak-google-address>
-        <ak-manual-address *ngSwitchCase="mAddressTabs.MANUAL" [addressFormGroup]="addressFormGroup"></ak-manual-address>
-    </div>
-
+    <ng-template *ngIf="isUnified; else nonUnified">
+            <ak-google-address [addressFormGroup]="addressFormGroup" [initialLocation]="initialLocation"></ak-google-address>
+    </ng-template>
+    <ng-template #nonUnified>
+        <ul class="nav nav-pills">
+            <li [ngClass]="{'active': selectedTab == mAddressTabs.GOOGLE}">
+                <a (click)="selectedTab = mAddressTabs.GOOGLE">Google Input</a>
+            </li>
+            <li [ngClass]="{'active': selectedTab == mAddressTabs.MANUAL}">
+                <a (click)="selectedTab = mAddressTabs.MANUAL">Manual Input</a>
+            </li>
+        </ul>
+        <div [ngSwitch]="selectedTab" class="sub-container">
+            <ak-google-address *ngSwitchCase="mAddressTabs.GOOGLE" [addressFormGroup]="addressFormGroup" [initialLocation]="initialLocation"></ak-google-address>
+            <ak-manual-address *ngSwitchCase="mAddressTabs.MANUAL" [addressFormGroup]="addressFormGroup"></ak-manual-address>
+        </div>
+    </ng-template>
     <output>{{addressFormGroup.value | json}}</output>
 </div>
