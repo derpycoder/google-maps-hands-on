@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy-to-github-pages": "ng build --prod --base-href http://www.abhijit-kar.com/google-maps-hands-on/ && ngh"
   },
   "private": true,
   "dependencies": {
