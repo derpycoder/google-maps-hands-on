@@ -82,7 +82,7 @@ export class GoogleAddressComponent implements OnInit {
 
   private disectAddressHTML(address: string) {
     const payload = {};
-    let x: string;
+    let x: string[];
 
     address.match(/<span class="(.*?)(?=<\/span>)/g).forEach(addr => {
       x = addr.substring(13).split('">');
