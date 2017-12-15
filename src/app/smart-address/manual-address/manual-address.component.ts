@@ -16,7 +16,7 @@ export class ManualAddressComponent implements OnInit, OnDestroy {
 
   get addresses(): FormArray {
     return this.addressFormGroup.get('addresses') as FormArray;
-  };
+  }
 
   constructor() { }
 

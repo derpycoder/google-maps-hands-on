@@ -14,22 +14,22 @@ export class SmartAddressComponent implements OnInit {
   mAddressTabs = AddressTabs;
   selectedTab: AddressTabs = AddressTabs.GOOGLE;
 
-  @Input() showMap: boolean = true;
-  @Input() isUnified: boolean = true;
+  @Input() showMap = true;
+  @Input() isUnified = true;
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation = {
     latitude: 39.8282,
     longitude: -98.5795,
     zoom: 4,
   };
-  @Input() addressCount: Number = 3;
+  @Input() addressCount = 1;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.setCurrentPosition();
 
-    let addrArray = this.formBuilder.array([new FormControl()])
+    const addrArray = this.formBuilder.array([new FormControl()]);
     let i = 1;
 
     while (i < this.addressCount) {
@@ -48,7 +48,7 @@ export class SmartAddressComponent implements OnInit {
   }
 
   private setCurrentPosition() {
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.initialLocation.latitude = position.coords.latitude;
         this.initialLocation.longitude = position.coords.longitude;

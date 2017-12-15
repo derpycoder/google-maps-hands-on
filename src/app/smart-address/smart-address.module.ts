@@ -16,7 +16,7 @@ import {
   imports: [
     AgmCoreModule.forRoot({
       apiKey: environment.google_maps_api_key,
-      libraries: ["places"]
+      libraries: ['places']
     }),
     CommonModule,
     FormsModule,

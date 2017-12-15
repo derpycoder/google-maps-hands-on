@@ -15,7 +15,7 @@ export class GoogleAddressComponent implements OnInit {
   @Input() initialLocation: GeometricLocation;
   @Input() showMap: boolean;
 
-  @ViewChild("search")
+  @ViewChild('search')
   searchElementRef: ElementRef;
 
   constructor(
@@ -25,12 +25,12 @@ export class GoogleAddressComponent implements OnInit {
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ['address']
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           console.log(place);
 
@@ -53,7 +53,7 @@ export class GoogleAddressComponent implements OnInit {
   }
 
   private disectAddressComponents(addressComponents: AddressComponent[]) {
-    let payload: any = {
+    const payload: any = {
       'city': '',
       'state': '',
       'country': '',
@@ -76,12 +76,13 @@ export class GoogleAddressComponent implements OnInit {
         }
       });
     });
-    
+
     this.addressFormGroup.patchValue(payload);
   }
 
   private disectAddressHTML(address: string) {
-    let payload = {}, x;
+    const payload = {};
+    let x: string;
 
     address.match(/<span class="(.*?)(?=<\/span>)/g).forEach(addr => {
       x = addr.substring(13).split('">');
@@ -94,7 +95,7 @@ export class GoogleAddressComponent implements OnInit {
   }
 
   private fillAddresses(payload) {
-    let addr: string = ""
+    let addr = '';
 
     addr += payload['street-address'] ? payload['street-address'] + ', ' : '';
 
@@ -105,7 +106,7 @@ export class GoogleAddressComponent implements OnInit {
       addr += payload['region'] ? payload['region'] + ', ' : '';
       addr += payload['country-name'] ? payload['country-name'] : '';
     }
-    
+
     this.addressFormGroup.patchValue({
       addresses: [addr]
     });

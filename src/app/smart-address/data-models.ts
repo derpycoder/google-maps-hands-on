@@ -10,4 +10,4 @@ export class GeometricLocation {
     latitude: Number;
     longitude: Number;
     zoom: Number;
-};
+}
