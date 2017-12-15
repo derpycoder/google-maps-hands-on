@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SmartAddressComponent } from './';
+import {
+  SmartAddressComponent,
+  GoogleAddressComponent,
+  ManualAddressComponent
+} from './';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [SmartAddressComponent]
+  declarations: [
+    SmartAddressComponent,
+    GoogleAddressComponent,
+    ManualAddressComponent
+  ]
 })
 export class SmartAddressModule { }

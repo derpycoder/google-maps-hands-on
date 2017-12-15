@@ -1,0 +1,18 @@
+.container {
+    padding: 0;
+}
+
+.nav {
+    margin-bottom: 10px;
+}
+
+.nav-pills > li {
+    cursor: pointer;
+}
+
+.sub-container {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
+    padding: 10px;
+}
