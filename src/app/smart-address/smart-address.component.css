@@ -1,18 +1,22 @@
 .container {
-    padding: 0;
+  padding: 0;
 }
 
 .nav {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .nav-pills > li {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .sub-container {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 
-    padding: 10px;
+  padding: 10px;
+}
+
+.btn-group {
+  float: right;
 }

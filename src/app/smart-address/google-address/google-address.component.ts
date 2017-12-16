@@ -1,34 +1,44 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  NgZone
+} from "@angular/core";
 
-import { FormGroup } from '@angular/forms';
-import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { FormGroup } from "@angular/forms";
+import {} from "googlemaps";
+import { MapsAPILoader } from "@agm/core";
 
-import { AddressTypes, AddressComponent, GeometricLocation } from '../data-models';
+import {
+  AddressTypes,
+  AddressComponent,
+  GeometricLocation
+} from "../data-models";
 @Component({
-  selector: 'ak-google-address',
-  templateUrl: './google-address.component.html',
-  styleUrls: ['./google-address.component.css']
+  selector: "ak-google-address",
+  templateUrl: "./google-address.component.html",
+  styleUrls: ["./google-address.component.css"]
 })
 export class GoogleAddressComponent implements OnInit {
   @Input() addressFormGroup: FormGroup;
   @Input() initialLocation: GeometricLocation;
   @Input() showMap: boolean;
 
-  @ViewChild('search')
-  searchElementRef: ElementRef;
+  @ViewChild("search") searchElementRef: ElementRef;
 
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) { }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
-      });
-      autocomplete.addListener('place_changed', () => {
+      const autocomplete = new google.maps.places.Autocomplete(
+        this.searchElementRef.nativeElement,
+        {
+          types: ["address"]
+        }
+      );
+      autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
@@ -36,7 +46,7 @@ export class GoogleAddressComponent implements OnInit {
 
           if (place.geometry === undefined || place.geometry === null) {
             this.addressFormGroup.patchValue({
-              addresses: [this.addressFormGroup.get('name').value || '']
+              addresses: [this.addressFormGroup.get("name").value || ""]
             });
             return;
           }
@@ -54,10 +64,10 @@ export class GoogleAddressComponent implements OnInit {
 
   private disectAddressComponents(addressComponents: AddressComponent[]) {
     const payload: any = {
-      'city': '',
-      'state': '',
-      'country': '',
-      'pin': ''
+      city: "",
+      state: "",
+      country: "",
+      pin: ""
     };
     addressComponents.forEach(component => {
       component.types.forEach(type => {
@@ -95,16 +105,16 @@ export class GoogleAddressComponent implements OnInit {
   }
 
   private fillAddresses(payload) {
-    let addr = '';
+    let addr = "";
 
-    addr += payload['street-address'] ? payload['street-address'] + ', ' : '';
+    addr += payload["street-address"] ? payload["street-address"] + ", " : "";
 
-    if (payload['extended-address']) {
-      addr += payload['extended-address'];
+    if (payload["extended-address"]) {
+      addr += payload["extended-address"];
     } else {
-      addr += payload['locality'] ? payload['locality'] + ', ' : '';
-      addr += payload['region'] ? payload['region'] + ', ' : '';
-      addr += payload['country-name'] ? payload['country-name'] : '';
+      addr += payload["locality"] ? payload["locality"] + ", " : "";
+      addr += payload["region"] ? payload["region"] + ", " : "";
+      addr += payload["country-name"] ? payload["country-name"] : "";
     }
 
     this.addressFormGroup.patchValue({
