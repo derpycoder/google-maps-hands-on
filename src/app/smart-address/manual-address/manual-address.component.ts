@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormArray } from "@angular/forms";
 
 import { countries, states } from "../mock-data";
@@ -8,7 +8,7 @@ import { countries, states } from "../mock-data";
   templateUrl: "./manual-address.component.html",
   styleUrls: ["./manual-address.component.css"]
 })
-export class ManualAddressComponent implements OnInit, OnDestroy {
+export class ManualAddressComponent implements OnInit {
   @Input() addressFormGroup: FormGroup;
 
   countries = countries;
@@ -21,20 +21,14 @@ export class ManualAddressComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    this.syncValue(this.addresses.at(0).value);
+    this.addressFormGroup.patchValue({
+      name: this.addresses.at(0).value
+    });
 
     this.addresses.at(0).valueChanges.subscribe(val => {
-      this.syncValue(val);
-    });
-  }
-
-  ngOnDestroy() {
-    this.syncValue(this.addresses.at(0).value);
-  }
-
-  syncValue(val) {
-    this.addressFormGroup.patchValue({
-      name: val
+      this.addressFormGroup.patchValue({
+        name: val
+      });
     });
   }
 }
